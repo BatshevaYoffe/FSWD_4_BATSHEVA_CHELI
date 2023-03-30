@@ -1,16 +1,21 @@
 import React from 'react';
 import DisplayArea from "./DisplayArea";
 import Keyboard from "./Keyboard";
+var m=""
 
 class Content extends React.Component {
     constructor(props){
         super(props)
         this.onclick=this.onclick.bind(this)
+        this.state={value:null,};
     }
     displayarea="display"
     onclick(val){
         alert(val)
-
+        m=this.state.value
+        alert(m)
+        m+=val
+        this.setState({value:m})
         this.displayarea=val
     }
     render() {
