@@ -2,30 +2,34 @@ import React from 'react';
 import DisplayArea from "./DisplayArea";
 import Keyboard from "./Keyboard";
 import Language from './Language';
+import PerKey from "./PerKey"
 let m=""
 
 class Content extends React.Component {
     constructor(props){
         super(props)
         this.onclick=this.onclick.bind(this)
-        this.state={value:"",};
+        this.lan1=this.lan1.bind(this)
+        this.state={value:"",language:"english"};
     }
-    displayarea="display"
     onclick(val){
-        // alert(val)
         m=this.state.value
-        // alert(m)
         m+=String(val)
-        // alert(m)
         this.setState({value:String(m)})
-        this.displayarea=val
+        // alert(this.state.language)
+    }
+    lan1(lan){
+        // alert(m)
+        // alert(lan)
+        // this.setState({language:lan})
     }
     render() {
       return (<div>
         <h2>Hi, I am a Content! </h2>
         <span><DisplayArea p={this.state.value}/></span>
-        <Keyboard func={this.onclick}/>
-        {/* <Language /> */}
+        <Keyboard lan={this.state.language} func={this.onclick}/>
+        <Language func={this.lan1}/>
+        {/* <PerKey func={this.onclick} /> */}
       </div>
       );
     }

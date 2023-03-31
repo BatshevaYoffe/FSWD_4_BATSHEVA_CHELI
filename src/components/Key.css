@@ -1,0 +1,7 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    /* -ms-flex: 1; /* IE 10 */
+    /* flex: 1; */ 
+}

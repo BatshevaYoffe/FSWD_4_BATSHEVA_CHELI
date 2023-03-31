@@ -1,14 +1,18 @@
 import React from 'react';
 import Key from './Key';
-var array = [1, 2, 3, 4, 5, 6]
+import "./Key.css";
+var numbers = ["0","1","2","3","4","5","6","7","8","9"]
 var heb=["א","ב","ג","ד","ה","ו"]
 var eng=["A","B","C","D"]
-var language=array
+var characters = ["!","@","#","$","%","^","&","*","(",")","_","-","=","+","|",";",":","/","'",",","<",">",".","?","[","]","{","}","~"]
+var array=numbers
+array=array.concat(characters)
 class Keyboard extends React.Component {
   
   constructor(props){
     super(props)
     this.onclick=this.onclick.bind(this)
+
   }
   onclick(val){
     // alert(val)
@@ -16,12 +20,26 @@ class Keyboard extends React.Component {
 
   }
   render() {
+    var numbers = ["0","1","2","3","4","5","6","7","8","9"]
+    var heb=["א","ב","ג","ד","ה","ו"]
+    var eng=["A","B","C","D"]
+    var characters = [" ","!","@","#","$","%","^","&","*","(",")","_","-","=","+","|",";",":","/","'",",","<",">",".","?","[","]","{","}","~"]
+    var array=numbers
+    array=array.concat(characters)
+    if(this.props.lan==="english"){
+      array=array.concat(eng)
+    }
+    if(this.props.lan==="עברית"){
+      array=array.concat(heb)
+      alert("keyboard change lan")
+
+    }
     return (<div>
       <h2>Hi, I am a Keyboard!</h2>
-      <div>
-        {array.map((language) =>
-          <div key={language.toString()}>
-            <Key char={language} func={this.onclick} />
+      <div class="flex">
+        {array.map((i) =>
+          <div key={i.toString()}>
+            <Key char={i} func={this.onclick} />
           </div>
         )}
         

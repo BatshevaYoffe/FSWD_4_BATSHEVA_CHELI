@@ -1,6 +1,7 @@
 
 import React from 'react';
-import DisplayArea from './DisplayArea';
+import './Key.css';
+
 class Key extends React.Component {
   constructor(props){
     super(props)
@@ -11,7 +12,7 @@ class Key extends React.Component {
 
   }
   render() {
-    return (<div>
+    return (<div class="flex">
       <button onClick={this.sayHello}>{this.props.char}</button>
     </div>);
   }
