@@ -7,6 +7,7 @@ let m = ""
 let lan = "עברית";
 let count = 0
 let count2 = 0
+let lastActions=[]
 class Content extends React.Component {
   constructor(props) {
     super(props)
@@ -17,23 +18,31 @@ class Content extends React.Component {
     this.state = { value: "", language: "english", case: "lower", color: "black", size: "10px", array: [] };
   }
 
+  undo(){
 
+  }
   onclick(val) {
+    if (val != "Undo") {//נשמור לפי סדר את הפעולות כדי למחוק פעולה אחרונה
+      lastActions.push(val)
+    }
     let x = val
-    switch (x) {
+    switch (x) {//הפעולה שנבחרה
+      case "Undo":
+        this.undo()
+        break;
       case " ":
-        var style= {whiteSpace: "pre-wrap"};
-        var a = { value: " ", style:style };
+        var style = { whiteSpace: "pre-wrap" };
+        var a = { value: " ", style: style };
         this.setState({ array: [...this.state.array, a] })
         break;
       case "upper-All":
-        this.state.array.forEach((item,index,arr)=>(arr[index].value= item.value.toUpperCase()))
+        this.state.array.forEach((item, index, arr) => (arr[index].value = item.value.toUpperCase()))
         this.setState(this.state);
         break;
       case "lower-All":
-          this.state.array.forEach((item,index,arr)=>(arr[index].value= item.value.toLowerCase()))
-          this.setState(this.state);
-          break;
+        this.state.array.forEach((item, index, arr) => (arr[index].value = item.value.toLowerCase()))
+        this.setState(this.state);
+        break;
       case "lower":
         this.setState({ case: x })
         break;
@@ -73,9 +82,9 @@ class Content extends React.Component {
         break;
       default:
         // var style= `color: ${this.state.color};size:${this.state.size};`;
-        var style= {color: this.state.color,fontSize:this.state.size};
+        var style = { color: this.state.color, fontSize: this.state.size };
 
-        var list = { value: val,style:style};
+        var list = { value: val, style: style };
         this.setState({ array: [...this.state.array, list] })
 
 
@@ -148,10 +157,9 @@ class Content extends React.Component {
   render() {
     return (<div>
       <h2>Hi, I am a Content! </h2>
-      <span><DisplayArea v={this.state.value} c={this.state.color} arr={this.state.array} /></span>
+      <span><DisplayArea arr={this.state.array} /></span>
       <Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} />
       <Language func={this.lan1} /*func2={this.fcolor}*/ />
-      {/* <PerKey func={this.onclick} /> */}
     </div>
     );
   }

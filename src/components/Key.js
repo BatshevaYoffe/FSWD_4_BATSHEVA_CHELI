@@ -12,8 +12,11 @@ class Key extends React.Component {
 
   }
   render() {
-    return (<div class="flex">
-      <button className='item' onClick={this.sayHello}>{this.props.char}</button>
+    var style = {};
+    if(this.props.char===" ")style.width = "200px";
+    
+    return (<div class="flex" >
+      <button style={style} className='item' onClick={this.sayHello}>{this.props.char}</button>
 
       {/* <div>
       {this.props.char=" "
