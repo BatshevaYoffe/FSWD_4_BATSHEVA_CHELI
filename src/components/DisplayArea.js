@@ -1,20 +1,25 @@
 
 import React from 'react';
-var s="hey "
+import './Key.css';
 
 class DisplayArea extends React.Component {
-    strings=[{char:"",color:""}]
 
+    constructor(props) {
+        super(props);
 
-    constructor(props){
-        super(props)
     }
+
     render() {
-        this.strings.concat({char:this.props.v,color:this.props.c})
-        alert(this.strings)
+        console.log(this.props.arr);
         return (<div>
             <h2>Hi, I am a DisplayArea!</h2>
-            <h3 style={{color:this.props.c}}>{this.props.v}</h3>
+            <p class="flex">
+                {this.props.arr.map((i, index) =>
+                    <span style={this.props.arr[index].style}>{this.props.arr[index].value}</span>
+
+                    // <span style={{ color: this.props.arr[index].color, fontSize: (this.props.arr[index].siz) }}>{this.props.arr[index].value}</span>
+                )}
+            </p>
         </div>);
     }
 }
