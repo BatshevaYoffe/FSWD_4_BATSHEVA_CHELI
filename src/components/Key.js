@@ -13,7 +13,13 @@ class Key extends React.Component {
   }
   render() {
     return (<div class="flex">
-      <button onClick={this.sayHello}>{this.props.char}</button>
+      <button className='item' onClick={this.sayHello}>{this.props.char}</button>
+
+      {/* <div>
+      {this.props.char=" "
+          ?<button className="space" onClick={this.sayHello}>{this.props.char}</button>
+          :<button onClick={this.sayHello}>{this.props.char}</button>
+      }</div> */}
     </div>);
   }
 }

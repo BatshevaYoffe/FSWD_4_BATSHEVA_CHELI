@@ -1,7 +1,15 @@
 .flex {
     display: flex;
+    /* width: 100px; */
+    order: 5;
     flex-wrap: wrap;
     align-content: flex-start;
     /* -ms-flex: 1; /* IE 10 */
     /* flex: 1; */ 
+}
+.item{
+    width: 50px;
+}
+.space{
+    color: rebeccapurple;
 }
