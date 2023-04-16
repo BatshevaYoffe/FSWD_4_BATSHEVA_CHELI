@@ -5,24 +5,19 @@ class Language extends React.Component {
     super(props)
     this.changeLanguage=this.changeLanguage.bind(this)
   }
-  changeLanguage(str){
-    // alert(str)
-    this.props.func(String(str))
-
+  
+  changeLanguage(val){
+    // console.log(val);
+    this.props.onChange(String(val));
   }
-  changecolor(str){
-    // this.props.func2((str))
 
-  }
+
 
   render() {
-    var array=[12,14,20]
     return (<div>
-        <h4>Chose Languages:</h4>
-      <button onClick={this.changeLanguage("עברית")}>עברית</button>
-      <button onClick={this.changeLanguage("english")}>English</button>
-      <button style={{color:"red"}} onClick={this.changecolor("red")} >red</button>
-        
+        <h4>Chose Languages1:</h4>
+      <button onClick={() => this.changeLanguage('עברית')}>עברית</button>
+      <button onClick={() => this.changeLanguage("english")}>English</button>        
     </div>);
   }
 }

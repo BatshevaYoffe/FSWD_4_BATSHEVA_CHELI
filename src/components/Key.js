@@ -17,12 +17,6 @@ class Key extends React.Component {
     
     return (<div class="flex" >
       <button style={style} className='item' onClick={this.sayHello}>{this.props.char}</button>
-
-      {/* <div>
-      {this.props.char=" "
-          ?<button className="space" onClick={this.sayHello}>{this.props.char}</button>
-          :<button onClick={this.sayHello}>{this.props.char}</button>
-      }</div> */}
     </div>);
   }
 }

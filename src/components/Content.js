@@ -2,23 +2,38 @@ import React from 'react';
 import DisplayArea from "./DisplayArea";
 import Keyboard from "./Keyboard";
 import Language from './Language';
-import PerKey from "./PerKey"
-let m = ""
-let lan = "עברית";
-let count = 0
-let count2 = 0
-let lastActions=[]
+import Color from "./Color";
+import Size from './Size';
+import Emoji from './Emoji';
+let lastActions = []
 class Content extends React.Component {
   constructor(props) {
     super(props)
     this.onclick = this.onclick.bind(this)
-    this.lan1 = this.lan1.bind(this)
-    this.fcolor = this.fcolor.bind(this)
-
+    this.onLanguageChange = this.onLanguageChange.bind(this)
+    this.ChangeColor = this.ChangeColor.bind(this)
+    this.ChangeSize = this.ChangeSize.bind(this)
+    // this.fcolor = this.fcolor.bind(this)
+    // this.onLanguageChange = this.onLanguageChange.bind(this);
     this.state = { value: "", language: "english", case: "lower", color: "black", size: "10px", array: [] };
   }
+  lastActions = []
+  lastcolors = ['black']
+  lastsizes = ['10px']
+  lastlanguages = ['english']
+  undo() {
+    // x=lastActions[lastActions.length()-1]
+    let x='l'
+    switch(x){
+      case 'l':
+        this.lastcolors=this.lastcolors.slice(-1)
+        break;
+      case 'c':
+        break;
+      case 's':
+        break;
 
-  undo(){
+    }
 
   }
   onclick(val) {
@@ -81,7 +96,6 @@ class Content extends React.Component {
         this.setState({ language: x })
         break;
       default:
-        // var style= `color: ${this.state.color};size:${this.state.size};`;
         var style = { color: this.state.color, fontSize: this.state.size };
 
         var list = { value: val, style: style };
@@ -146,20 +160,36 @@ class Content extends React.Component {
 
     // }
   }
-  lan1(lan) {
-    // alert(m)
-    // alert(lan)
-    // this.setState({language:lan})
+  onLanguageChange(lan) {
+    this.lastActions=[...this.lastActions,'l']
+    this.lastlanguages = [...this.lastlanguages, lan]
+    this.setState({ language: lan })
   }
-  fcolor(str) {
-    // this.setState({color:str})
+
+  ChangeColor(c) {
+    this.lastActions=[...this.lastActions,'c']
+
+    this.lastcolors = [...this.lastcolors, c]
+    this.setState({ color: c })
+
   }
+  ChangeSize(s) {
+    this.lastActions=[...this.lastActions,'s']
+
+    this.lastsizes = [...this.lastsizes, s]
+    this.setState({ size: s })
+
+  }
+
   render() {
     return (<div>
       <h2>Hi, I am a Content! </h2>
       <span><DisplayArea arr={this.state.array} /></span>
-      <Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} />
-      <Language func={this.lan1} /*func2={this.fcolor}*/ />
+      <Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} func2={this.lan1} />
+      <Language onChange={this.onLanguageChange} /*func2={this.fcolor}*/ />
+      <Color onChangeColor={this.ChangeColor} />
+      <Size onChangeSize={this.ChangeSize} />
+      <Emoji func={this.onclick}/>
     </div>
     );
   }
