@@ -1,7 +1,9 @@
 import React from 'react';
 import Key from './Key';
-import './Key.css';
+import './PerKey.css';
+
 class PerKey extends React.Component {
+  isvisited=false
   font = ['Gisha', 'Aharoni', 'Monospace', 'Arial', 'Cursive', 'Fantasy', 'Levenim MT']
   constructor(props) {
     super(props)
@@ -9,14 +11,28 @@ class PerKey extends React.Component {
     this.click2 = this.click2.bind(this)
     this.click3 = this.click3.bind(this)
     this.click4 = this.click4.bind(this)
-    this.state = { caps: 'upper' }
+    this.state = { caps: 'upper', italic: 'normal' }
   }
   onclick(val) {
     this.props.func(val)
 
   }
   click2(val) {
-    this.props.func2(val)
+    console.log(this.props.st);
+    console.log(val);
+    // this.isvisited=true
+    if (val === 'italic') {
+      this.setState({ italic: 'normal' })
+      this.props.func2('normal')
+
+    }
+    else {
+      this.setState({ italic: 'italic' })
+          this.props.func2('italic')
+
+
+    }
+    // this.props.func2(this.state.italic)
   }
   click3(val) {
     if (val === 'upper') {
@@ -26,7 +42,6 @@ class PerKey extends React.Component {
       this.setState({ caps: 'upper' })
 
     }
-    console.log("its click3");
     this.props.func3(val)
   }
   click4(val) {
@@ -51,24 +66,26 @@ class PerKey extends React.Component {
   }
   render() {
     return (<div>
-      <h2>Hi, I am a PerKey!</h2>
       <div class="flex">
         <input type="checkbox" id="myCheck" onclick="myFunction()"></input>
         <p id="text" style={{ display: 'none' }}>Checkbox is ALL!</p>
 
-        <button onClick={() => this.click3(this.state.caps)}>{this.state.caps}</button>
+        <button onClick={() => this.click3(this.state.caps)}>CapsLk</button>
 
         <Key char={"upper-All"} func={this.onclick} />
         <Key char={"lower-All"} func={this.onclick} />
         <Key char={"Undo"} func={this.onclick} />
 
-        <button onClick={() => this.click2('normal')}>normal</button>
-        <button onClick={() => this.click2("italic")}>italic</button>
+        {/* <button onClick={() => this.click2('normal')}>normal</button>
+        <button onClick={() => this.click2("italic")}>italic</button> */}
 
-        <select onChange={(event) => this.click4(event.target.value)} id="sizes" name="sizelist">
+        <button /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontStyle:'italic',fontFamily:'Aldhabi'}} onClick={() => this.click2(this.state.italic)}>I</button>
+
+
+        <select onChange={(event) => this.click4(event.target.value)}>
           {this.font.map(
             f =>
-              <option value={f}>{f}</option>
+              <option style={{ fontFamily: f }} value={f}>{f}</option>
           )}
         </select>
       </div>

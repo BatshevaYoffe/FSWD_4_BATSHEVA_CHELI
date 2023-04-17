@@ -3,7 +3,8 @@ import Key from './Key';
 import "./Key.css";
 
 class Keyboard extends React.Component {
-
+  RussianUppercase = new Array(32).fill(1).map((_, i) => String.fromCharCode(1040 + i));
+  RussianLowercase = new Array(32).fill(1).map((_, i) => String.fromCharCode(1072 + i));
   constructor(props) {
     super(props)
     this.onclick = this.onclick.bind(this)
@@ -35,20 +36,26 @@ class Keyboard extends React.Component {
     if (this.props.lan == "עברית") {
       array = array.concat(heb)
     }
-    if(this.props.lan==='emoji'){
-      array=(emoji)
+    if (this.props.lan === 'emoji') {
+      array = (emoji)
+    }
+    if (this.props.lan === 'Russian') {
+      if (this.props.case === "lower") {
+        array = array.concat(this.RussianLowercase)
+      }
+      else {
+        array = array.concat(this.RussianUppercase)
+      }
     }
 
+
     return (<div>
-      <h2>Hi, I am a Keyboard!</h2>
       <div class="flex">
         {array.map((i, index) =>
           <div key={i.toString()}>
             <Key char={i} func={this.onclick} />
           </div>
         )}
-      </div>
-      <div>
       </div>
     </div>
     );

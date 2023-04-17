@@ -1,6 +1,8 @@
 
 import React from 'react';
+import './Language.css'
 class Language extends React.Component {
+
   constructor(props){
     super(props)
     this.changeLanguage=this.changeLanguage.bind(this)
@@ -12,10 +14,10 @@ class Language extends React.Component {
 
   render() {
     return (<div>
-        <h4>Chose Languages1:</h4>
-      <button onClick={() => this.changeLanguage('עברית')}>עברית</button>
-      <button onClick={() => this.changeLanguage("english")}>English</button>   
-      <button onClick={() => this.changeLanguage("emoji")}>Emoji</button>   
+      <button class='button' onClick={() => this.changeLanguage('עברית')}>עברית</button>
+      <button class='button'  onClick={() => this.changeLanguage("english")}>English</button>   
+      <button class='button'  onClick={() => this.changeLanguage("emoji")}>Emoji</button> 
+      <button class='button' onClick={() => this.changeLanguage("Russian")}>Russian</button>   
     </div>);
   }
 }

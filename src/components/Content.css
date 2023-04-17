@@ -1,0 +1,23 @@
+.item1 { grid-area: header; }
+.item2 { grid-area: main; }
+.item3 { grid-area: right; }
+.item4 { grid-area: left1; }
+.item5 { grid-area: left2; }
+.item6{grid-area: language;}
+.item7{grid-area: content;}
+
+.grid-container {
+  display: grid;
+  /* grid-template-rows: 100px,auto,200px,200px,200px; */
+  grid-template-areas:
+    'header header header '
+    'language content .'
+    'main left1 right'
+    'main left2 right';
+  gap: 10px;
+  /* background-color:beige; */
+  padding: 10px;
+}
+.content{
+    background-color: lightpink;
+}

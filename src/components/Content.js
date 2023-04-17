@@ -4,8 +4,8 @@ import Keyboard from "./Keyboard";
 import Language from './Language';
 import Color from "./Color";
 import Size from './Size';
-import Emoji from './Emoji';
 import PerKey from './PerKey';
+import './Content.css'
 // let lastActions = []
 class Content extends React.Component {
   constructor(props) {
@@ -17,8 +17,7 @@ class Content extends React.Component {
     this.change = this.change.bind(this)
     this.changeCase = this.changeCase.bind(this)
     this.changeFont = this.changeFont.bind(this)
-    // this.fcolor = this.fcolor.bind(this)
-    // this.onLanguageChange = this.onLanguageChange.bind(this);
+
     this.state = { value: "", st: 'normal', font: "Arial", language: "english", case: "lower", color: "black", size: "10px", array: [] };
   }
   lastActions = []
@@ -36,7 +35,10 @@ class Content extends React.Component {
     switch (lastAction) {
       case 'language':
         this.lastlanguages.pop()
+        console.log(this.state.language);
+
         this.setState({ language: this.lastlanguages[this.lastlanguages.length - 1] })
+        console.log(this.state.language);
         break;
 
       case 'color':
@@ -59,6 +61,7 @@ class Content extends React.Component {
 
         break;
       case 'st':
+        console.log(this.lastst)
         this.lastst.pop()
         this.setState({ color: this.lastst[this.lastst.length - 1] })
 
@@ -70,7 +73,7 @@ class Content extends React.Component {
         break;
 
       default:
-        this.onclick('Delete')
+        // this.onclick('Delete')
 
 
     }
@@ -88,7 +91,8 @@ class Content extends React.Component {
         this.undo()
         break;
       case " ":
-        var style = { whiteSpace: "pre-wrap" };
+        console.log("רווחחח");
+        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st, fontFamily: this.state.font,whiteSpace: "pre-wrap" };
         var a = { value: " ", style: style };
         this.setState({ array: [...this.state.array, a] })
         break;
@@ -118,61 +122,6 @@ class Content extends React.Component {
 
 
     }
-    // m = this.state.value
-    // if (val === "red") {
-    //   this.setState({ color: "red" })
-
-    // }
-    // else {
-    //   if (val === "blue") {
-    //     this.setState({ color: "blue" })
-    //   }
-    //   else
-    //     if (val === "black") {
-    //       this.setState({ color: "black" })
-
-    //     }
-    //     else {
-    //       if (val === "english") {
-    //         this.setState({ language: "english" })
-
-    //       }
-    //       else {
-    //         if (val === "עברית") {
-    //           this.setState({ language: "עברית" })
-    //           // count2=
-    //         }
-    //         else
-    //           if (val === "Delete") {
-    //             alert("DELETE")
-    //             var list = this.state.array.pop;
-    //             alert(list)
-    //             this.setState({ array: [list] })
-
-    //           }
-    //           else {
-    //             if (val === " ") {
-    //               alert(val)
-    //               this.setState({ array: [...this.state.array, { value: " ", color: this.state.color }] })
-    //             }
-
-    //             if (count === 0) {
-    //               this.setState({ array: [{ value: val, color: this.state.color }] }) //another array
-    //               count = 1
-    //               alert(count)
-    //             }
-    //             else {
-    //               var list = { value: val, color: this.state.color };
-    //               this.setState({ array: [...this.state.array, list] })
-    //             }
-
-    //             m += String(val)
-    //             this.setState({ value: val })
-    //       }
-    //   }
-    // }
-
-    // }
   }
   onLanguageChange(lan) {
     // this.lastActions=[...this.lastActions,'l']
@@ -183,6 +132,8 @@ class Content extends React.Component {
 
   ChangeColor(c) {
     this.lastActions.push('color')
+    console.log(this.lastcolors);
+
     this.lastcolors = [...this.lastcolors, c]
     console.log(this.lastcolors);
     this.setState({ color: c })
@@ -196,31 +147,38 @@ class Content extends React.Component {
 
   }
   change(val) {
+    console.log(this.lastst);
     this.lastActions.push('st')
     this.lastst.push(val)
+    console.log(this.lastst);
+
     this.setState({ st: val })
   }
   changeCase(val) {
     this.lastActions.push('case')
-    this.lastst.push(val)
+    this.lastCase.push(val)
     this.setState({ case: val })
   }
   changeFont(val) {
     this.lastActions.push('font')
-    this.lastst.push(val)
+    this.lastfont.push(val)
     this.setState({ font: val })
   }
 
   render() {
-    return (<div>
-      <h2>Hi, I am a Content! </h2>
-      <span><DisplayArea arr={this.state.array} /></span>
-      <Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} func2={this.onclick} />
-      <Language onChange={this.onLanguageChange} /*func2={this.fcolor}*/ />
-      <Color onChangeColor={this.ChangeColor} />
-      <Size onChangeSize={this.ChangeSize} />
-      {/* <Emoji func={this.onclick} /> */}
-      <PerKey func={this.onclick} func2={this.change} func3={this.changeCase} func4={this.changeFont} />
+    return (<div className='content'>
+      <DisplayArea arr={this.state.array} />
+      <div class='grid-container'>
+        <div class='item1'><Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} func2={this.onclick} /></div>
+        <div class='item2'><Language onChange={this.onLanguageChange} /></div>
+        <div id='item7'><h1>select language:</h1></div>
+
+        <div id='item6'><h1>select styls:</h1></div>
+
+        <div class='item3'><Color onChangeColor={this.ChangeColor} /></div>
+        <div class='item4'><Size onChangeSize={this.ChangeSize} /></div>
+        <div class='item5'><PerKey st={this.state.st} func={this.onclick} func2={this.change} func3={this.changeCase} func4={this.changeFont} /></div>
+      </div>
     </div>
     );
   }
