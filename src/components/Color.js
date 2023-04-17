@@ -15,11 +15,14 @@ class Color extends React.Component {
     render() {
         return (<div>
             <h4>Chose color:</h4>
-            <div>
+            <div class='flex'>
                 {this.colors.map(
-                    color =>
+                    color => 
+                    <div  key={color}>
+
                         <button style={{ backgroundColor: color }} className='colorBtn' onClick={() => this.changeColor(color)}>
                         </button>
+                    </div>
                 )}
             </div>
         </div>);

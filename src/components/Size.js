@@ -1,31 +1,35 @@
 import React from 'react';
 class Size extends React.Component {
-    arr = ["12", "14", "20"]
+    arr = ['10',"12", "14", "20",'28','48','72']
 
     constructor(props) {
         super(props)
         this.changeSize = this.changeSize.bind(this)
     }
 
-    changeSize(color) {
-        this.props.onChangeSize(String(color));
+    changeSize(size) {
+        this.props.onChangeSize(String(size));
     }
 
     render() {
         return (<div>
-            <h2>chose size</h2>
+            {/* <h2>chose size</h2>
             <div class="flex">
                 {this.arr.map(
-                    color =>
-                        <button onClick={() => this.changeSize(color)}>
+                    size =>
+                    <div key={size.toString()}>
+                        <button onClick={() => this.changeSize(size)}>
                         </button>
+                        </div>
                 )}
-            </div>
+            </div> */}
             <label for="cars">Choose a Size:</label>
-            <select id="sizes" name="sizelist">
+            <select onChange={(event)=>this.changeSize(event.target.value)} id="sizes" name="sizelist">
             {this.arr.map(
-                    color =>
-                    <option on={()=>this.changeSize(color)} value={color}>{color}</option>
+                    size =>
+                    // <div key={size}>
+                    <option value={size}>{size}</option>
+                    // </div>
                 )}
             </select>
 
