@@ -29,10 +29,7 @@ class PerKey extends React.Component {
     else {
       this.setState({ italic: 'italic' })
           this.props.func2('italic')
-
-
     }
-    // this.props.func2(this.state.italic)
   }
   click3(val) {
     if (val === 'upper') {
@@ -46,30 +43,11 @@ class PerKey extends React.Component {
   }
   click4(val) {
     this.props.func4(val)
-
   }
-  myFunction() {
-    // Get the checkbox
-    var checkBox = document.getElementById("myCheck");
-    // Get the output text
-    var text = document.getElementById("text");
 
-    // If the checkbox is checked, display the output text
-    if (checkBox.checked == true) {
-      console.log('chekedddd');
-      text.style.display = 'block'
-      // text.style.display = "block";
-    } else {
-      text.style.display = "none";
-      console.log('nott');
-    }
-  }
   render() {
     return (<div>
       <div class="flex">
-        <input type="checkbox" id="myCheck" onclick="myFunction()"></input>
-        <p id="text" style={{ display: 'none' }}>Checkbox is ALL!</p>
-
         <button onClick={() => this.click3(this.state.caps)}>CapsLk</button>
 
         <Key char={"upper-All"} func={this.onclick} />

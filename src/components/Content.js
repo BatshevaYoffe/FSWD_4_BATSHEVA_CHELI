@@ -6,6 +6,7 @@ import Color from "./Color";
 import Size from './Size';
 import PerKey from './PerKey';
 import './Content.css'
+import ChangeAll from './ChangeAll';
 // let lastActions = []
 class Content extends React.Component {
   constructor(props) {
@@ -17,8 +18,10 @@ class Content extends React.Component {
     this.change = this.change.bind(this)
     this.changeCase = this.changeCase.bind(this)
     this.changeFont = this.changeFont.bind(this)
+    this.ChangeAll=this.ChangeAll.bind(this)
+    this.ChangeAllColor=this.ChangeAllColor.bind(this)
 
-    this.state = { value: "", st: 'normal', font: "Arial", language: "english", case: "lower", color: "black", size: "10px", array: [] };
+    this.state = { value: "", st: 'normal',bold:'normal', font: "Arial", language: "english", case: "lower", color: "black", size: "10px",changeAll:'false', array: [] };
   }
   lastActions = []
   lastst = ['normal']
@@ -114,7 +117,7 @@ class Content extends React.Component {
       default:
         this.lastActions.push('char')
 
-        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st, fontFamily: this.state.font };
+        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st,fontweight:this.state.bold, fontFamily: this.state.font };
 
         var list = { value: val, style: style };
         this.setState({ array: [...this.state.array, list] })
@@ -164,6 +167,17 @@ class Content extends React.Component {
     this.lastfont.push(val)
     this.setState({ font: val })
   }
+  ChangeAll(val){
+    console.log(val);
+    this.setState({changeAll:val})
+    console.log(this.state.changeAll);
+    this.ChangeAllColor('red')
+  }
+  ChangeAllColor(c){
+    this.state.array.forEach((item, index, arr) => (arr[index].style.color=c))
+
+
+  }
 
   render() {
     return (<div className='content'>
@@ -171,9 +185,8 @@ class Content extends React.Component {
       <div class='grid-container'>
         <div class='item1'><Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} func2={this.onclick} /></div>
         <div class='item2'><Language onChange={this.onLanguageChange} /></div>
-        <div id='item7'><h1>select language:</h1></div>
 
-        <div id='item6'><h1>select styls:</h1></div>
+        <div ><ChangeAll onChangeAll={this.ChangeAll} /></div>
 
         <div class='item3'><Color onChangeColor={this.ChangeColor} /></div>
         <div class='item4'><Size onChangeSize={this.ChangeSize} /></div>

@@ -50,9 +50,9 @@ class Keyboard extends React.Component {
 
 
     return (<div>
-      <div class="flex">
+      <div class="flex Keyboard">
         {array.map((i, index) =>
-          <div key={i.toString()}>
+          <div  key={i.toString()}>
             <Key char={i} func={this.onclick} />
           </div>
         )}
