@@ -31,7 +31,7 @@ class Content extends React.Component {
   lastsizes = ['10px']
   lastlanguages = ['english']
 
-  undo() {
+  async undo() {
     // debugger
     let lastAction = this.lastActions.pop()
     console.log(lastAction);
@@ -39,40 +39,33 @@ class Content extends React.Component {
       case 'language':
         this.lastlanguages.pop()
         console.log(this.state.language);
-
-        this.setState({ language: this.lastlanguages[this.lastlanguages.length - 1] })
+        await this.setState({ language: this.lastlanguages[this.lastlanguages.length - 1] })
         console.log(this.state.language);
         break;
-
       case 'color':
         this.lastcolors.pop()
-        this.setState({ color: this.lastcolors[this.lastcolors.length - 1] })
-
+        await this.setState({ color: this.lastcolors[this.lastcolors.length - 1] })
         break;
       case 'size':
         this.lastsizes.pop()
-        this.setState({ size: this.lastsizes[this.lastsizes.length - 1] })
-
+        await this.setState({ size: this.lastsizes[this.lastsizes.length - 1] })
         break;
       case 'char':
         this.state.array.pop()
-        this.setState({ array: this.state.array })
+        await this.setState({ array: this.state.array })
         break
       case 'font':
         this.lastfont.pop()
-        this.setState({ color: this.lastfont[this.lastfont.length - 1] })
-
+        await this.setState({ font: this.lastfont[this.lastfont.length - 1] })
         break;
       case 'st':
         console.log(this.lastst)
         this.lastst.pop()
-        this.setState({ color: this.lastst[this.lastst.length - 1] })
-
+        await this.setState({ st: this.lastst[this.lastst.length - 1] })
         break;
       case 'case':
         this.lastCase.pop()
-        this.setState({ color: this.lastCase[this.lastCase.length - 1] })
-
+        await this.setState({ case: this.lastCase[this.lastCase.length - 1] })
         break;
 
       default:
@@ -126,55 +119,60 @@ class Content extends React.Component {
 
     }
   }
-  onLanguageChange(lan) {
+  async onLanguageChange(lan) {
     // this.lastActions=[...this.lastActions,'l']
     this.lastActions.push('language')
     this.lastlanguages = [...this.lastlanguages, lan]
-    this.setState({ language: lan })
+    await this.setState({ language: lan })
   }
 
-  ChangeColor(c) {
+  async ChangeColor(c) {
     this.lastActions.push('color')
     console.log(this.lastcolors);
 
     this.lastcolors = [...this.lastcolors, c]
     console.log(this.lastcolors);
-    this.setState({ color: c })
+    await this.setState({ color: c })
 
   }
-  ChangeSize(s) {
+  async ChangeSize(s) {
     s += 'px'
+    console.log(this.state.size);
+
     this.lastActions.push('size')
     this.lastsizes = [...this.lastsizes, s]
-    this.setState({ size: s })
+    await this.setState({ size: s })
+    console.log(this.state.size);
 
   }
-  change(val) {
-    console.log(this.lastst);
+  async change(val){
+    console.log(this.state.st);
+
     this.lastActions.push('st')
     this.lastst.push(val)
-    console.log(this.lastst);
-
-    this.setState({ st: val })
+    await this.setState({ st: val });
+    console.log(this.state.st);
   }
-  changeCase(val) {
+  async changeCase(val) {
     this.lastActions.push('case')
     this.lastCase.push(val)
-    this.setState({ case: val })
+    await this.setState({ case: val })
   }
-  changeFont(val) {
+  async changeFont(val) {
     this.lastActions.push('font')
     this.lastfont.push(val)
-    this.setState({ font: val })
+    await this.setState({ font: val })
   }
-  ChangeAll(val){
+  async ChangeAll(val){
     console.log(val);
-    this.setState({changeAll:val})
+    await this.setState({changeAll:val})
     console.log(this.state.changeAll);
     this.ChangeAllColor('red')
   }
   ChangeAllColor(c){
-    this.state.array.forEach((item, index, arr) => (arr[index].style.color=c))
+    this.state.array.forEach((item, index, arr) => (
+      // console.log(arr[index].style.color)
+      ((arr[index].style.color===c))))
 
 
   }
