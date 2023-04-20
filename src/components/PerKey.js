@@ -11,7 +11,7 @@ class PerKey extends React.Component {
     this.click2 = this.click2.bind(this)
     this.click3 = this.click3.bind(this)
     this.click4 = this.click4.bind(this)
-    this.state = { caps: 'upper', italic: 'normal' }
+    this.state = { caps: 'upper', italic: 'normal' ,bold:'normal'}
   }
   onclick(val) {
     this.props.func(val)
@@ -44,11 +44,23 @@ class PerKey extends React.Component {
   click4(val) {
     this.props.func4(val)
   }
+  click5(val) {
+    console.log('click55555');
+    if (val === 'bold') {
+      this.setState({ bold: 'normal' })
+      this.props.func5('normal')
+
+    }
+    else {
+      this.setState({ bold: 'bold' })
+      this.props.func5('bold')
+    }
+  }
 
   render() {
     return (<div>
       <div class="flex">
-        <button onClick={() => this.click3(this.state.caps)}>CapsLk</button>
+        <button class='key-button item' onClick={() => this.click3(this.state.caps)}>CapsLk</button>
 
         <Key char={"upper-All"} func={this.onclick} />
         <Key char={"lower-All"} func={this.onclick} />
@@ -57,13 +69,14 @@ class PerKey extends React.Component {
         {/* <button onClick={() => this.click2('normal')}>normal</button>
         <button onClick={() => this.click2("italic")}>italic</button> */}
 
-        <button /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontStyle:'italic',fontFamily:'Aldhabi'}} onClick={() => this.click2(this.state.italic)}>I</button>
+        <button class='key-button item' /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontStyle:'italic',fontFamily:'Aldhabi'}} onClick={() => this.click2(this.state.italic)}>I</button>
+        <button class='key-button item' /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontWeight:'bold'}} onClick={() => this.click5(this.state.bold)}>B</button>
 
 
-        <select onChange={(event) => this.click4(event.target.value)}>
+        <select class='key-button item' onChange={(event) => this.click4(event.target.value)}>
           {this.font.map(
             f =>
-              <option style={{ fontFamily: f }} value={f}>{f}</option>
+              <option style={{ fontFamily: f,backgroundColor:'white',color:'black' }} value={f}>{f}</option>
           )}
         </select>
       </div>

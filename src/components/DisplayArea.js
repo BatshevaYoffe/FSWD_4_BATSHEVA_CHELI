@@ -13,13 +13,13 @@ class DisplayArea extends React.Component {
         console.log(this.props.arr);
         return (
             <div className='border'>
-                <div style={{overflow:'auto'}} className="flex">
-            <p >
-                {this.props.arr.map((i, index) =>
-                    <span style={this.props.arr[index].style}>{this.props.arr[index].value}</span>
-                )}
-                </p>
-        </div>
+                <div style={{ overflow: 'auto' }} className="flex">
+                    <p >
+                        {this.props.arr.map((i, index) =>
+                            <span style={this.props.arr[index].style}>{this.props.arr[index].value}</span>
+                        )}
+                    </p>
+                </div>
             </div>
         );
     }

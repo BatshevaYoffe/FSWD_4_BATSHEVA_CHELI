@@ -18,19 +18,25 @@ class Content extends React.Component {
     this.change = this.change.bind(this)
     this.changeCase = this.changeCase.bind(this)
     this.changeFont = this.changeFont.bind(this)
-    this.ChangeAll=this.ChangeAll.bind(this)
-    this.ChangeAllColor=this.ChangeAllColor.bind(this)
+    this.ChangeAll = this.ChangeAll.bind(this)
+    this.ChangeAllColor = this.ChangeAllColor.bind(this)
+this.changeBold=this.changeBold.bind(this)
 
-    this.state = { value: "", st: 'normal',bold:'normal', font: "Arial", language: "english", case: "lower", color: "black", size: "10px",changeAll:'false', array: [] };
+    this.state = {
+      colorAll: '', value: "", st: 'normal', bold: 'normal', font: "Arial", language: "english",
+      case: "lower", color: "black", size: "10px", changeAll: 'false', array: []
+    };
   }
+  arrayChangeAll = []
   lastActions = []
   lastst = ['normal']
+  lastbold=['normal']
   lastfont = ['Arial']
   lastCase = ['lower']
   lastcolors = ['black']
   lastsizes = ['10px']
   lastlanguages = ['english']
-
+  colorAll = []
   async undo() {
     // debugger
     let lastAction = this.lastActions.pop()
@@ -67,28 +73,29 @@ class Content extends React.Component {
         this.lastCase.pop()
         await this.setState({ case: this.lastCase[this.lastCase.length - 1] })
         break;
+        case 'bold':
+        this.lastbold.pop()
+        await this.setState({ bold: this.lastbold[this.lastbold.length - 1] })
+        break;
+      // case 'colorAll':
+      //   var lastarray=this.arrayChangeAll.pop()
+      //   console.log(lastarray);
 
-      default:
-        // this.onclick('Delete')
-
+      //   this.setState({array:lastarray})
+      //   break;
 
     }
 
   }
   onclick(val) {
-    if (val !== "Undo") {//נשמור לפי סדר את הפעולות כדי למחוק פעולה אחרונה
-      // this.lastActions.push(val)
-      console.log(this.lastActions);
-      // alert(this.lastActions)
-    }
     let x = val
     switch (x) {//הפעולה שנבחרה
       case "Undo":
         this.undo()
         break;
       case " ":
-        console.log("רווחחח");
-        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st, fontFamily: this.state.font,whiteSpace: "pre-wrap" };
+        this.lastActions.push('char')
+        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st, fontFamily: this.state.font, whiteSpace: "pre-wrap" };
         var a = { value: " ", style: style };
         this.setState({ array: [...this.state.array, a] })
         break;
@@ -109,14 +116,9 @@ class Content extends React.Component {
         break;
       default:
         this.lastActions.push('char')
-
-        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st,fontweight:this.state.bold, fontFamily: this.state.font };
-
+        var style = { color: this.state.color, fontSize: this.state.size, fontStyle: this.state.st, fontWeight: this.state.bold, fontFamily: this.state.font };
         var list = { value: val, style: style };
         this.setState({ array: [...this.state.array, list] })
-
-
-
     }
   }
   async onLanguageChange(lan) {
@@ -127,27 +129,23 @@ class Content extends React.Component {
   }
 
   async ChangeColor(c) {
-    this.lastActions.push('color')
-    console.log(this.lastcolors);
-
-    this.lastcolors = [...this.lastcolors, c]
-    console.log(this.lastcolors);
-    await this.setState({ color: c })
+    if (this.state.changeAll = 'true') {
+      this.ChangeAllColor(c)
+    }
+    else {
+      this.lastActions.push('color')
+      this.lastcolors = [...this.lastcolors, c]
+      await this.setState({ color: c })
+    }
 
   }
   async ChangeSize(s) {
     s += 'px'
-    console.log(this.state.size);
-
     this.lastActions.push('size')
     this.lastsizes = [...this.lastsizes, s]
     await this.setState({ size: s })
-    console.log(this.state.size);
-
   }
-  async change(val){
-    console.log(this.state.st);
-
+  async change(val) {
     this.lastActions.push('st')
     this.lastst.push(val)
     await this.setState({ st: val });
@@ -159,22 +157,50 @@ class Content extends React.Component {
     await this.setState({ case: val })
   }
   async changeFont(val) {
+    if (this.state.changeAll = 'true') {
+      this.ChangeAllFont(val)
+    }
+    else {
     this.lastActions.push('font')
     this.lastfont.push(val)
     await this.setState({ font: val })
+    }
   }
-  async ChangeAll(val){
-    console.log(val);
-    await this.setState({changeAll:val})
+  async changeBold(val) {
+    // if (this.state.changeAll = 'true') {
+    //   // this.ChangeAllFont(val)
+    // }
+    // else {
+    console.log('bold')
+    this.lastActions.push('bold')
+    this.lastbold.push(val)
+    await this.setState({ bold: val })
+    // }
+  }
+  async ChangeAll(val) {
+    await this.setState({ changeAll: val })
     console.log(this.state.changeAll);
-    this.ChangeAllColor('red')
   }
-  ChangeAllColor(c){
-    this.state.array.forEach((item, index, arr) => (
-      // console.log(arr[index].style.color)
-      ((arr[index].style.color===c))))
-
-
+  async ChangeAllColor(c) {
+    this.lastActions.push('colorAll')
+    await this.setState({ colorAll: c })
+    this.colorAll.push(c)
+    this.state.array.forEach((item, index, arr) => {
+      arr[index].style = { color: c, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.st, fontweight: arr[index].style.bold, fontFamily: arr[index].style.font }
+    }
+    )
+    this.setState(this.state.array)
+  }
+  async ChangeAllFont(f) {
+    console.log('fontalll');
+    this.lastActions.push('fontAll')
+    // await this.setState({ fontAll: f })
+    // this.fontAll.push(f)
+    this.state.array.forEach((item, index, arr) => {
+      arr[index].style = { color: arr[index].style.fontSize, fontSize: arr[index].style.fontSize, fontStyle: f, fontweight: arr[index].style.bold, fontFamily: arr[index].style.font }
+    }
+    )
+    this.setState(this.state.array)
   }
 
   render() {
@@ -183,12 +209,10 @@ class Content extends React.Component {
       <div class='grid-container'>
         <div class='item1'><Keyboard lan={this.state.language} case={this.state.case} func={this.onclick} func2={this.onclick} /></div>
         <div class='item2'><Language onChange={this.onLanguageChange} /></div>
-
-        <div ><ChangeAll onChangeAll={this.ChangeAll} /></div>
-
+        <div class='item6'><ChangeAll onChangeAll={this.ChangeAll} /></div>
         <div class='item3'><Color onChangeColor={this.ChangeColor} /></div>
-        <div class='item4'><Size onChangeSize={this.ChangeSize} /></div>
-        <div class='item5'><PerKey st={this.state.st} func={this.onclick} func2={this.change} func3={this.changeCase} func4={this.changeFont} /></div>
+        <div class='item5'><Size onChangeSize={this.ChangeSize} /></div>
+        <div class='item4'><PerKey st={this.state.st} func={this.onclick} func2={this.change} func3={this.changeCase} func4={this.changeFont} func5={this.changeBold} /></div>
       </div>
     </div>
     );

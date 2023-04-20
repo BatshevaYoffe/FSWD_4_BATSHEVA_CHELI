@@ -14,7 +14,6 @@ class Color extends React.Component {
 
     render() {
         return (<div>
-            <h4>Chose color:</h4>
             <div class='flex'>
                 {this.colors.map(
                     color => 
