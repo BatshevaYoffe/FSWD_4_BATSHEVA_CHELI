@@ -15,9 +15,13 @@ class DisplayArea extends React.Component {
             <div className='border'>
                 <div style={{ overflow: 'auto' }} className="flex">
                     <p >
-                        {this.props.arr.map((i, index) =>
-                            <span style={this.props.arr[index].style}>{this.props.arr[index].value}</span>
-                        )}
+                        {this.props.arr.map((i, index) => 
+                            (this.props.arr[index].value === '\t')?
+                            <br/>
+                            :
+                                <span style={this.props.arr[index].style}>{this.props.arr[index].value}</span>
+                        )
+                        }
                     </p>
                 </div>
             </div>

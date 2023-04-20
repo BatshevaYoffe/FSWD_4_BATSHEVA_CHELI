@@ -24,7 +24,7 @@ this.changeBold=this.changeBold.bind(this)
 
     this.state = {
       colorAll: '', value: "", st: 'normal', bold: 'normal', font: "Arial", language: "english",
-      case: "lower", color: "black", size: "10px", changeAll: 'false', array: []
+      case: "lower", color: "black", size: "10px", changeAll: 'false', array: [],history:[]
     };
   }
   arrayChangeAll = []
@@ -37,6 +37,8 @@ this.changeBold=this.changeBold.bind(this)
   lastsizes = ['10px']
   lastlanguages = ['english']
   colorAll = []
+
+  lastarray=[]
   async undo() {
     // debugger
     let lastAction = this.lastActions.pop()
@@ -77,12 +79,15 @@ this.changeBold=this.changeBold.bind(this)
         this.lastbold.pop()
         await this.setState({ bold: this.lastbold[this.lastbold.length - 1] })
         break;
-      // case 'colorAll':
-      //   var lastarray=this.arrayChangeAll.pop()
-      //   console.log(lastarray);
+      case 'colorAll':
+        this.lastarray=this.arrayChangeAll.pop()
+        console.log(this.lastarray);
 
-      //   this.setState({array:lastarray})
-      //   break;
+        this.setState({array:this.lastarray})
+        break;
+        case 'fontAll':
+          this.setState({array:this.state.history})
+          break;
 
     }
 
@@ -129,7 +134,7 @@ this.changeBold=this.changeBold.bind(this)
   }
 
   async ChangeColor(c) {
-    if (this.state.changeAll = 'true') {
+    if (this.state.changeAll === 'true') {
       this.ChangeAllColor(c)
     }
     else {
@@ -157,7 +162,7 @@ this.changeBold=this.changeBold.bind(this)
     await this.setState({ case: val })
   }
   async changeFont(val) {
-    if (this.state.changeAll = 'true') {
+    if (this.state.changeAll === 'true') {
       this.ChangeAllFont(val)
     }
     else {
@@ -196,11 +201,12 @@ this.changeBold=this.changeBold.bind(this)
     this.lastActions.push('fontAll')
     // await this.setState({ fontAll: f })
     // this.fontAll.push(f)
+    this.setState({history:this.state.array})
     this.state.array.forEach((item, index, arr) => {
-      arr[index].style = { color: arr[index].style.fontSize, fontSize: arr[index].style.fontSize, fontStyle: f, fontweight: arr[index].style.bold, fontFamily: arr[index].style.font }
+      arr[index].style = { color: arr[index].style.fontSize, fontSize: arr[index].style.fontSize, fontStyle:arr[index].style.fontStyle , fontWeight: arr[index].style.fontWeight, fontFamily: f }
     }
     )
-    this.setState(this.state.array)
+    await this.setState(this.state.array)
   }
 
   render() {

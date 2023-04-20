@@ -14,9 +14,12 @@ class Key extends React.Component {
   render() {
     var style = {};
     if(this.props.char===" ")style.width = "200px";
-    
+
     return (<div class="flex" >
-      <button class='key-button item' style={style}  onClick={this.sayHello}>{this.props.char}</button>
+      {this.props.char==='\t'?
+      <button class='key-button item' style={style}  onClick={this.sayHello}>Enter</button>
+      :<button class='key-button item' style={style}  onClick={this.sayHello}>{this.props.char}</button>
+  }
     </div>);
   }
 }

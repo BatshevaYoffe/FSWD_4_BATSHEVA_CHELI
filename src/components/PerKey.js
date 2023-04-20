@@ -65,10 +65,6 @@ class PerKey extends React.Component {
         <Key char={"upper-All"} func={this.onclick} />
         <Key char={"lower-All"} func={this.onclick} />
         <Key char={"Undo"} func={this.onclick} />
-
-        {/* <button onClick={() => this.click2('normal')}>normal</button>
-        <button onClick={() => this.click2("italic")}>italic</button> */}
-
         <button class='key-button item' /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontStyle:'italic',fontFamily:'Aldhabi'}} onClick={() => this.click2(this.state.italic)}>I</button>
         <button class='key-button item' /*className={this.state.italic =='normal'?'btnselected':''}*/ style={{fontWeight:'bold'}} onClick={() => this.click5(this.state.bold)}>B</button>
 

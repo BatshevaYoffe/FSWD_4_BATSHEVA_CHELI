@@ -5,6 +5,9 @@ import "./Key.css";
 class Keyboard extends React.Component {
   RussianUppercase = new Array(32).fill(1).map((_, i) => String.fromCharCode(1040 + i));
   RussianLowercase = new Array(32).fill(1).map((_, i) => String.fromCharCode(1072 + i));
+  engL=new Array( 26 ).fill( 1 ).map( ( _, i ) => String.fromCharCode( 97 + i ) );
+  engU=new Array( 26 ).fill( 1 ).map( ( _, i ) => String.fromCharCode( 65 + i ) );
+  heb=new Array( 27 ).fill( 1 ).map( ( _, i ) => String.fromCharCode( 1488 + i ) );
   constructor(props) {
     super(props)
     this.onclick = this.onclick.bind(this)
@@ -17,9 +20,6 @@ class Keyboard extends React.Component {
 
   render() {
     var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    var heb = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ך", "ל", "מ", "ם", "נ", "ן", "ס", "ע", "פ", "ף", "צ", "ץ", "ק", "ר", "ש", "ת"]
-    var engU = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    var engL = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     var emoji = ['😀', "😁", "😂", "😃", "😄", "😅", "😆", "😇", "😈", "😉", "😊", '😋', "😌", '😍', '😎', '😏', '😐', '😑', "😒", "😓", '😔', '😕', '😖', '😗', '😘', '😙', '😚', '😛', '😜', '😝', '😞', '😟', '😠', '😡', '😢', '😣', '😤', '😥', '😦', '😧', '😨', "😩", '😪', '😫', '😬', '😭', '😮', '😯', '😰', '😱', '😲', '😳', '😴', '😵', '😶', '😷', '🙁', '🙂', '🙃', '🙄', '🤐', '🤑', '🤒', '🤓', '🤔', '🤕', '🤠', '🤡', '🤢', '🤣', '🤤', '🤥', '🤧', '🤨', '🤩', '🤪', '🤫', '🤬', '🤭', '🤮', '🤯', '🧐', '❤', '🌸', '🍓', '💞', '💯', '💗', '🔥']
     var characters = ['\t',"Delete", "Delete All", " ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "=", "+", "|", ";", ":", "/", "'", ",", "<", ">", ".", "?", "[", "]", "{", "}", "~"]
     var array = numbers
@@ -27,14 +27,14 @@ class Keyboard extends React.Component {
 
     if (this.props.lan == "english") {
       if (this.props.case === "lower") {
-        array = array.concat(engL)
+        array = array.concat(this.engL)
       }
       else {
-        array = array.concat(engU)
+        array = array.concat(this.engU)
       }
     }
     if (this.props.lan == "עברית") {
-      array = array.concat(heb)
+      array = array.concat(this.heb)
     }
     if (this.props.lan === 'emoji') {
       array = (emoji)
