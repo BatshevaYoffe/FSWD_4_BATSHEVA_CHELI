@@ -14,8 +14,8 @@ class ChangeAll extends React.Component {
 
     render() {
         return (<div onChange={this.onChangeValue}>
-            <input type="radio" value="false" name="all" /> change style only for the next char
-            <input type="radio" value='true' name="all" /> change style for all the txt
+            <div><input type="radio" id='one' value="false" name="all" /><label for='one'> change style only for the next char</label></div>
+            <div><input type="radio" id='all' value='true' name="all" /><label for='all'> change style for all the txt</label></div>
 
 
         </div>)

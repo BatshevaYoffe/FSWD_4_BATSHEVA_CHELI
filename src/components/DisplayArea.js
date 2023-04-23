@@ -12,8 +12,9 @@ class DisplayArea extends React.Component {
     render() {
         console.log(this.props.arr);
         return (
-            <div className='border'>
-                <div style={{ overflow: 'auto' }} className="flex">
+            <div style={{'border-radius':'10px'}}>
+                <div className='border' style={{ overflow: 'auto' }}>
+                <div className="flex">
                     <p >
                         {this.props.arr.map((i, index) => 
                             (this.props.arr[index].value === '\t')?
@@ -25,6 +26,8 @@ class DisplayArea extends React.Component {
                     </p>
                 </div>
             </div>
+            </div>
+            
         );
     }
 }

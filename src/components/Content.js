@@ -20,17 +20,17 @@ class Content extends React.Component {
     this.changeFont = this.changeFont.bind(this)
     this.ChangeAll = this.ChangeAll.bind(this)
     this.ChangeAllColor = this.ChangeAllColor.bind(this)
-this.changeBold=this.changeBold.bind(this)
+    this.changeBold = this.changeBold.bind(this)
 
     this.state = {
       colorAll: '', value: "", st: 'normal', bold: 'normal', font: "Arial", language: "english",
-      case: "lower", color: "black", size: "10px", changeAll: 'false', array: [],history:[]
+      case: "lower", color: "black", size: "10px", changeAll: 'false', array: [], history: []
     };
   }
   arrayChangeAll = []
   lastActions = []
   lastst = ['normal']
-  lastbold=['normal']
+  lastbold = ['normal']
   lastfont = ['Arial']
   lastCase = ['lower']
   lastcolors = ['black']
@@ -38,7 +38,7 @@ this.changeBold=this.changeBold.bind(this)
   lastlanguages = ['english']
   colorAll = []
 
-  lastarray=[]
+  lastarray = []
   async undo() {
     // debugger
     let lastAction = this.lastActions.pop()
@@ -75,19 +75,19 @@ this.changeBold=this.changeBold.bind(this)
         this.lastCase.pop()
         await this.setState({ case: this.lastCase[this.lastCase.length - 1] })
         break;
-        case 'bold':
+      case 'bold':
         this.lastbold.pop()
         await this.setState({ bold: this.lastbold[this.lastbold.length - 1] })
         break;
       case 'colorAll':
-        this.lastarray=this.arrayChangeAll.pop()
+        this.lastarray = this.arrayChangeAll.pop()
         console.log(this.lastarray);
 
-        this.setState({array:this.lastarray})
+        this.setState({ array: this.lastarray })
         break;
-        case 'fontAll':
-          this.setState({array:this.state.history})
-          break;
+      case 'fontAll':
+        this.setState({ array: this.state.history })
+        break;
 
     }
 
@@ -135,7 +135,13 @@ this.changeBold=this.changeBold.bind(this)
 
   async ChangeColor(c) {
     if (this.state.changeAll === 'true') {
-      this.ChangeAllColor(c)
+      this.lastActions.push('colorAll')
+      await this.setState({ colorAll: c })
+      this.colorAll.push(c)
+      this.state.array.forEach((item, index, arr) => {
+        arr[index].style = { color: c, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.fontStyle, fontWeight: arr[index].style.fontWeight, fontFamily: arr[index].style.fontFamily }
+      })
+      this.setState(this.state.array)
     }
     else {
       this.lastActions.push('color')
@@ -146,15 +152,33 @@ this.changeBold=this.changeBold.bind(this)
   }
   async ChangeSize(s) {
     s += 'px'
-    this.lastActions.push('size')
-    this.lastsizes = [...this.lastsizes, s]
-    await this.setState({ size: s })
+    if (this.state.changeAll === 'true') {
+      console.log('change size');
+      this.state.array.forEach((item, index, arr) => {
+        arr[index].style = { color: arr[index].style.color, fontSize: s, fontStyle: arr[index].style.fontStyle, fontWeight: arr[index].style.fontWeight, fontFamily: arr[index].style.fontFamily }
+      })
+      this.setState(this.state.array)
+    }
+    else {
+      this.lastActions.push('size')
+      this.lastsizes = [...this.lastsizes, s]
+      await this.setState({ size: s })
+    }
   }
   async change(val) {
-    this.lastActions.push('st')
-    this.lastst.push(val)
-    await this.setState({ st: val });
-    console.log(this.state.st);
+    if (this.state.changeAll === 'true') {
+      console.log('change bold');
+      this.state.array.forEach((item, index, arr) => {
+        arr[index].style = { color: arr[index].style.color, fontSize: arr[index].style.fontSize, fontStyle: val, fontWeight: arr[index].style.fontWeight, fontFamily: arr[index].style.fontFamily }
+      })
+      await this.setState(this.state.array)
+    }
+    else {
+      this.lastActions.push('st')
+      this.lastst.push(val)
+      await this.setState({ st: val });
+      console.log(this.state.st);
+    }
   }
   async changeCase(val) {
     this.lastActions.push('case')
@@ -163,50 +187,41 @@ this.changeBold=this.changeBold.bind(this)
   }
   async changeFont(val) {
     if (this.state.changeAll === 'true') {
-      this.ChangeAllFont(val)
+      console.log('fontalll');
+      this.lastActions.push('fontAll')
+      // await this.setState({ fontAll: f })
+      // this.fontAll.push(f)
+      this.setState({ history: this.state.array })
+      this.state.array.forEach((item, index, arr) => {
+        arr[index].style = { color: arr[index].style.color, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.fontStyle, fontWeight: arr[index].style.fontWeight, fontFamily: val }
+      }
+      )
+      await this.setState(this.state.array)
     }
     else {
-    this.lastActions.push('font')
-    this.lastfont.push(val)
-    await this.setState({ font: val })
+      this.lastActions.push('font')
+      this.lastfont.push(val)
+      await this.setState({ font: val })
     }
   }
   async changeBold(val) {
-    // if (this.state.changeAll = 'true') {
-    //   // this.ChangeAllFont(val)
-    // }
-    // else {
-    console.log('bold')
-    this.lastActions.push('bold')
-    this.lastbold.push(val)
-    await this.setState({ bold: val })
-    // }
+    if (this.state.changeAll === 'true') {
+      console.log('change bold');
+      this.state.array.forEach((item, index, arr) => {
+        arr[index].style = { color: arr[index].style.color, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.fontStyle, fontWeight: val, fontFamily: arr[index].style.fontFamily }
+      })
+      await this.setState(this.state.array)
+    }
+    else {
+      console.log('bold')
+      this.lastActions.push('bold')
+      this.lastbold.push(val)
+      await this.setState({ bold: val })
+    }
   }
   async ChangeAll(val) {
     await this.setState({ changeAll: val })
     console.log(this.state.changeAll);
-  }
-  async ChangeAllColor(c) {
-    this.lastActions.push('colorAll')
-    await this.setState({ colorAll: c })
-    this.colorAll.push(c)
-    this.state.array.forEach((item, index, arr) => {
-      arr[index].style = { color: c, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.st, fontweight: arr[index].style.bold, fontFamily: arr[index].style.font }
-    }
-    )
-    this.setState(this.state.array)
-  }
-  async ChangeAllFont(f) {
-    console.log('fontalll');
-    this.lastActions.push('fontAll')
-    // await this.setState({ fontAll: f })
-    // this.fontAll.push(f)
-    this.setState({history:this.state.array})
-    this.state.array.forEach((item, index, arr) => {
-      arr[index].style = { color: arr[index].style.fontSize, fontSize: arr[index].style.fontSize, fontStyle:arr[index].style.fontStyle , fontWeight: arr[index].style.fontWeight, fontFamily: f }
-    }
-    )
-    await this.setState(this.state.array)
   }
 
   render() {

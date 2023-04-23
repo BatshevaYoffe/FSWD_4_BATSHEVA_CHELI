@@ -5,9 +5,9 @@ import './Key.css';
 class Key extends React.Component {
   constructor(props){
     super(props)
-    this.sayHello=this.sayHello.bind(this)
+    this.clickKey=this.clickKey.bind(this)
   }
-  sayHello=()=> {
+  clickKey=()=> {
     this.props.func(this.props.char)
 
   }
@@ -15,10 +15,10 @@ class Key extends React.Component {
     var style = {};
     if(this.props.char===" ")style.width = "200px";
 
-    return (<div class="flex" >
+    return (<div class="flex " >
       {this.props.char==='\t'?
-      <button class='key-button item' style={style}  onClick={this.sayHello}>Enter</button>
-      :<button class='key-button item' style={style}  onClick={this.sayHello}>{this.props.char}</button>
+      <button class='key-button item' style={style}  onClick={this.clickKey}>Enter</button>
+      :<button class='key-button item' style={style}  onClick={this.clickKey}>{this.props.char}</button>
   }
     </div>);
   }
