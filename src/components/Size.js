@@ -18,12 +18,9 @@ class Size extends React.Component {
             <select class='key-button item' onChange={(event)=>this.changeSize(event.target.value)} id="sizes" name="sizelist">
             {this.arr.map(
                     size =>
-                    // <div key={size}>
                     <option style={{backgroundColor:'white',color:'black' }} value={size}>{size}</option>
-                    // </div>
                 )}
             </select>
-
         </div>)
     }
 }

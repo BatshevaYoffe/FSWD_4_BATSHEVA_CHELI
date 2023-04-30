@@ -19,7 +19,7 @@ class Content extends React.Component {
     this.changeCase = this.changeCase.bind(this)
     this.changeFont = this.changeFont.bind(this)
     this.ChangeAll = this.ChangeAll.bind(this)
-    this.ChangeAllColor = this.ChangeAllColor.bind(this)
+    // this.ChangeAllColor = this.ChangeAllColor.bind(this)
     this.changeBold = this.changeBold.bind(this)
 
     this.state = {
@@ -40,7 +40,6 @@ class Content extends React.Component {
 
   lastarray = []
   async undo() {
-    // debugger
     let lastAction = this.lastActions.pop()
     console.log(lastAction);
     switch (lastAction) {
@@ -126,17 +125,17 @@ class Content extends React.Component {
         this.setState({ array: [...this.state.array, list] })
     }
   }
-  async onLanguageChange(lan) {
+  onLanguageChange(lan) {
     // this.lastActions=[...this.lastActions,'l']
     this.lastActions.push('language')
     this.lastlanguages = [...this.lastlanguages, lan]
-    await this.setState({ language: lan })
+    this.setState({ language: lan })
   }
 
   async ChangeColor(c) {
     if (this.state.changeAll === 'true') {
-      this.lastActions.push('colorAll')
-      await this.setState({ colorAll: c })
+      // this.lastActions.push('colorAll')
+      this.setState({ colorAll: c })
       this.colorAll.push(c)
       this.state.array.forEach((item, index, arr) => {
         arr[index].style = { color: c, fontSize: arr[index].style.fontSize, fontStyle: arr[index].style.fontStyle, fontWeight: arr[index].style.fontWeight, fontFamily: arr[index].style.fontFamily }
@@ -153,7 +152,6 @@ class Content extends React.Component {
   async ChangeSize(s) {
     s += 'px'
     if (this.state.changeAll === 'true') {
-      console.log('change size');
       this.state.array.forEach((item, index, arr) => {
         arr[index].style = { color: arr[index].style.color, fontSize: s, fontStyle: arr[index].style.fontStyle, fontWeight: arr[index].style.fontWeight, fontFamily: arr[index].style.fontFamily }
       })
@@ -188,7 +186,7 @@ class Content extends React.Component {
   async changeFont(val) {
     if (this.state.changeAll === 'true') {
       console.log('fontalll');
-      this.lastActions.push('fontAll')
+      // this.lastActions.push('fontAll')
       // await this.setState({ fontAll: f })
       // this.fontAll.push(f)
       this.setState({ history: this.state.array })
