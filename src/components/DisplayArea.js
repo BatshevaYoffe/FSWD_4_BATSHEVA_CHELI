@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './Key.css';
+import './css/Key.css';
 
 class DisplayArea extends React.Component {
 

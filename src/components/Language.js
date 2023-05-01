@@ -1,6 +1,5 @@
 
 import React from 'react';
-import './Language.css'
 class Language extends React.Component {
   langueges = ['עברית', 'english', 'emoji', 'Russian']
   
@@ -9,7 +8,6 @@ class Language extends React.Component {
     this.onChangeValue = this.onChangeValue.bind(this)
 
   }
-
 
   onChangeValue(event) {
     console.log(event.target.value);

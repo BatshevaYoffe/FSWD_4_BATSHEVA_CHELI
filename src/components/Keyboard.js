@@ -1,6 +1,6 @@
 import React from 'react';
 import Key from './Key';
-import "./Key.css";
+import './css/Key.css';
 
 class Keyboard extends React.Component {
   RussianUppercase = new Array(32).fill(1).map((_, i) => String.fromCharCode(1040 + i));
@@ -42,7 +42,7 @@ class Keyboard extends React.Component {
     if (this.props.lan === 'emoji') {
       array = (emoji)
     }
-    
+
     if (this.props.lan === 'Russian') {
       if (this.props.case === "lower") {
         array = array.concat(this.RussianLowercase)

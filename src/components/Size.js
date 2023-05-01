@@ -1,5 +1,5 @@
 import React from 'react';
-import './Key.css'
+import './css/Key.css';
 class Size extends React.Component {
     arr = ['10',"12", "14", "20",'28','48','72']
 

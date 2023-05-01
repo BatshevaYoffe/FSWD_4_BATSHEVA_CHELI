@@ -5,7 +5,7 @@ import Language from './Language';
 import Color from "./Color";
 import Size from './Size';
 import PerKey from './PerKey';
-import './Content.css'
+import './css/Content.css'
 import ChangeAll from './ChangeAll';
 // let lastActions = []
 class Content extends React.Component {

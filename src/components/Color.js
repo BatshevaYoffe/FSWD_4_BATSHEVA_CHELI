@@ -1,5 +1,5 @@
 import React from 'react';
-import './Color.css';
+import './css/Color.css';
 class Color extends React.Component {
     colors = ['red', 'black', 'blue', 'Magenta', 'Cyan', "Yellow", "Gray", "Green", "DarkOrange", "HotPink", "#990000", "#cc3399", "#ffffff", "#6699ff", "#999966", "#666699", 'Aqua', 'Lime', 'Olive', 'Teal', 'Indigo', 'Violet', 'Pink', 'Brown', 'Sienna', 'Crimson', 'bisque', 'blueviolet', 'burlywood', 'chartreuse', 'cadetblue', 'chocolate', 'cornsilk', 'crimson', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategrey', 'deeppink', 'gainsboro', 'gold', 'goldenrod', 'khaki', 'lavender', 'lavenderblush', 'lightgoldenrodyellow', 'lightsalmon'];
 

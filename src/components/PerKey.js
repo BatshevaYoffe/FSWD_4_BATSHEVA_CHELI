@@ -1,6 +1,5 @@
 import React from 'react';
 import Key from './Key';
-import './PerKey.css';
 
 class PerKey extends React.Component {
   isvisited = false
@@ -63,7 +62,6 @@ class PerKey extends React.Component {
     return (<div>
       <div class="flex">
         <button class='key-button item' onClick={() => this.click3(this.state.caps)}>CapsLk</button>
-
         <Key char={"upper-All"} func={this.onclick} />
         <Key char={"lower-All"} func={this.onclick} />
         <Key char={"Undo"} func={this.onclick} />
